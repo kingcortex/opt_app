@@ -40,6 +40,8 @@ dependencies:
   flutter_svg: ^2.0.10+1
   pinput: ^4.0.0
   get: ^4.6.6
+  firebase_core: ^2.27.1
+  firebase_auth: ^4.17.9
 
 dev_dependencies:
   flutter_test:

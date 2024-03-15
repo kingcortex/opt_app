@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -13,6 +15,8 @@ class EmailForm extends StatefulWidget {
 }
 
 class _EmailFormState extends State<EmailForm> {
+  StreamController<bool> isClicableStreamController = StreamController<bool>();
+  StreamController<bool> isLoadingStreamController = StreamController<bool>();
   @override
   Widget build(BuildContext context) {
     return FadeInUp(
@@ -21,22 +25,20 @@ class _EmailFormState extends State<EmailForm> {
         children: [
           SizedBox(
             height: 48,
-            child: Expanded(
-              child: Container(
-                padding: const EdgeInsets.symmetric(horizontal: 10),
-                decoration: BoxDecoration(
-                  border: Border.all(color: Colors.white24),
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                child: TextField(
-                  style: GoogleFonts.plusJakartaSans(color: white),
-                  keyboardType: TextInputType.emailAddress,
-                  decoration: InputDecoration(
-                    border: InputBorder.none,
-                    hintText: "Enter your email",
-                    hintStyle: GoogleFonts.plusJakartaSans(
-                      color: Colors.white24,
-                    ),
+            child: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 10),
+              decoration: BoxDecoration(
+                border: Border.all(color: Colors.white24),
+                borderRadius: BorderRadius.circular(8),
+              ),
+              child: TextField(
+                style: GoogleFonts.plusJakartaSans(color: white),
+                keyboardType: TextInputType.emailAddress,
+                decoration: InputDecoration(
+                  border: InputBorder.none,
+                  hintText: "Enter your email",
+                  hintStyle: GoogleFonts.plusJakartaSans(
+                    color: Colors.white24,
                   ),
                 ),
               ),
@@ -44,6 +46,8 @@ class _EmailFormState extends State<EmailForm> {
           ),
           const Gap(24),
           CustomButton(
+            isLoadingStreamController: isLoadingStreamController,
+            isClicableStreamController: isClicableStreamController,
             text: "Send Code",
             onTap: () {},
           ),

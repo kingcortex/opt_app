@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "160440660947",
+    "project_id": "login-app-447cc",
+    "storage_bucket": "login-app-447cc.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:160440660947:android:2794b082c0d6158a817526",
+        "android_client_info": {
+          "package_name": "com.example.otp_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAJXDlK4X9RnS9MetecqaPzIIz_Kkv8mv0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

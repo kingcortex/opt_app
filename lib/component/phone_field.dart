@@ -1,35 +1,33 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:gap/gap.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:otp_app/theme/colors.dart';
 
 class PhoneField extends StatefulWidget {
-  const PhoneField({super.key});
+  final TextEditingController controller;
+  final List<String> listCountryCode;
+  final Function(String) getNumberCode;
+  final Function(String)? onChange;
+  const PhoneField(
+      {super.key,
+      required this.controller,
+      required this.getNumberCode,
+      required this.listCountryCode,
+      this.onChange});
 
   @override
   State<PhoneField> createState() => _PhoneFieldState();
 }
 
 class _PhoneFieldState extends State<PhoneField> {
-  TextEditingController phoneController = TextEditingController();
-  List<String> numberCodes = [
-    '+225', // Côte d'Ivoire
-    '+229', // Bénin
-    '+226', // Burkina Faso
-    '+224', // Guinée
-  ];
   late String selectedCode;
 
   @override
   void initState() {
-    selectedCode = numberCodes[0];
+    selectedCode = widget.listCountryCode[0];
+    widget.getNumberCode(selectedCode);
     super.initState();
-  }
-
-  @override
-  void dispose() {
-    phoneController.dispose();
-    super.dispose();
   }
 
   @override
@@ -55,8 +53,9 @@ class _PhoneFieldState extends State<PhoneField> {
                 setState(() {
                   selectedCode = value!;
                 });
+                widget.getNumberCode(selectedCode);
               },
-              items: numberCodes
+              items: widget.listCountryCode
                   .map(
                     (e) => DropdownMenuItem(
                       value: e,
@@ -77,15 +76,21 @@ class _PhoneFieldState extends State<PhoneField> {
                 borderRadius: BorderRadius.circular(8),
               ),
               child: TextField(
-                controller: phoneController,
-                style:
-                    GoogleFonts.plusJakartaSans(color: white, letterSpacing: 4),
+                onChanged: (value) {
+                  widget.onChange!(value);
+                },
+                maxLength: 10,
+                inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                controller: widget.controller,
+                style: GoogleFonts.plusJakartaSans(
+                  color: white,
+                ),
                 keyboardType: TextInputType.phone,
                 decoration: InputDecoration(
+                  counterText: "",
                   hintText: "Enter your phone number",
                   hintStyle: GoogleFonts.plusJakartaSans(
                     color: Colors.white24,
-                    letterSpacing: 0.5,
                   ),
                   border: InputBorder.none,
                 ),
