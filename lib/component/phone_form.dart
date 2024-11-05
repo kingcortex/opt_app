@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-import 'package:get/get_connect/http/src/utils/utils.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/get_navigation.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -50,7 +49,14 @@ class _PhoneFormState extends State<PhoneForm> {
       },
       codeSent: (verificationId, p1) {
         isLoadingStreamController.add(false);
-        Get.to(() => const VerificationPage());
+        Get.to(
+          () => const VerificationPage(),
+          arguments: {
+            "verificationId": verificationId,
+            "phoneNumber":
+                NumService.getCompleteNumber(numberCode, phoneController.text)
+          },
+        );
       },
       codeAutoRetrievalTimeout: (s) {
         print("s");

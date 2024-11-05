@@ -37,6 +37,7 @@ class _PhoneFieldState extends State<PhoneField> {
       child: Row(
         children: [
           Container(
+            height: 48,
             width: 68,
             alignment: Alignment.center,
             padding: const EdgeInsets.symmetric(horizontal: 6),
@@ -77,6 +78,7 @@ class _PhoneFieldState extends State<PhoneField> {
               ),
               child: TextField(
                 onChanged: (value) {
+                  print("ok");
                   widget.onChange!(value);
                 },
                 maxLength: 10,

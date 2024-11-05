@@ -1,4 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:get/get.dart';
+import 'package:otp_app/screen/success_page.dart';
 
 class AuthService {
   static final auth = FirebaseAuth.instance;
@@ -18,5 +21,20 @@ class AuthService {
       codeAutoRetrievalTimeout: codeAutoRetrievalTimeout,
     );
     print("end");
+  }
+
+  static Future<void> verificationOtp(String verificationId, String smsCode,
+      {required void Function() onFailed}) async {
+    final credential = PhoneAuthProvider.credential(
+      verificationId: verificationId,
+      smsCode: smsCode,
+    );
+
+    try {
+      await auth.signInWithCredential(credential);
+      Get.to(() => const SuccessPage(), popGesture: false);
+    } on Exception catch (e) {
+      onFailed();
+    }
   }
 }
